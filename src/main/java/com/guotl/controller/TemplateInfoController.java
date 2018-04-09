@@ -20,7 +20,7 @@ public class TemplateInfoController {
     @Autowired
     private TemplateInfoService templateInfoService;
 
-    @RequestMapping("/findAll")
+    @RequestMapping("")
     @ResponseBody
     public List findAll(){
         return templateInfoService.findAll();

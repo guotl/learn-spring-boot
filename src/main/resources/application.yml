@@ -3,11 +3,36 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/database1?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/database1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#    username: root
+#    password: root
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+
+#c3p0
+c3p0:
+  jdbc-url: jdbc:mysql://localhost:3306/database1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+  user: root
+  password: root
+  driver-class: com.mysql.jdbc.Driver
+  #关键配置
+  #初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3
+  initial-pool-size: 3
+  #连接池中保留的最小连接数。Default: 2
+  min-pool-size: 2
+  #连接池中保留的最大连接数。Default: 15
+  max-pool-size: 15
+  #当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3
+  acquire-increment: 3
+  #性能配置
+  #控制数据源内加载的PreparedStatements数量。如果maxStatements与maxStatementsPerConnection均为0，则缓存被关闭。Default: 0
+  max-statements: 8
+  #maxStatementsPerConnection定义了连接池内单个连接所拥有的最大缓存statements数。Default: 0
+  max-statements-per-connection: 5
+  #最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0
+  max-idle-time: 1800
 
 mybatis:
-  mapper-locations: classpath:/mapper/*Dao.xml
+#  mapper-locations: classpath:mapper/*Dao.xml #此处为xml放在resource下
+  mapper-locations: classpath:com/guotl/sqlMap/*Dao.xml #xml放在src下。需要更改pom文件设置
   base-package: com.guotl.dao
